@@ -6,7 +6,7 @@ Main application view:
 ![GitHub Logo](/images/main.png)
 
 Serial monitor window:
-/
+
 
 ![GitHub Logo](/images/monitor.png)
 
