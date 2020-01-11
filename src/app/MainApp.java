@@ -365,6 +365,7 @@ public class MainApp extends JFrame {
 				message += " ";
 				message += nameTextField.getText();
 				message += " ";
+				
 				if (functionTypeBox.getSelectedItem().equals("Print words")) {
 					message += "word";
 				} else {
@@ -374,10 +375,11 @@ public class MainApp extends JFrame {
 				message += " ";
 				message += parameterTextField.getText();
 				message += " ";
+				message += arrivalTextField.getText();
+				message += " ";
 				message += periodTextField.getText();
 				message += " ";
 				message += durationTextField.getText();
-				
 				
 				try {
 					serialPort.writeString(message);
@@ -414,6 +416,15 @@ public class MainApp extends JFrame {
 				batch += ((String) taskTypeBox.getSelectedItem()).toLowerCase();
 				batch += "-";
 				batch += nameTextField.getText();
+				batch += "-";
+				if (functionTypeBox.getSelectedItem().equals("Print words")) {
+					batch += "word";
+				} else {
+					batch += "number";
+				}
+				
+				batch += "-";
+				batch += parameterTextField.getText();
 				batch += "-";
 				batch += arrivalTextField.getText();
 				batch += "-";
@@ -461,7 +472,9 @@ public class MainApp extends JFrame {
 					JOptionPane.showMessageDialog(null, text);
 					return;
 				}
-
+				
+				System.out.println(batch);
+				
 				try {
 					serialPort.writeString(batch);
 				} catch (SerialPortException e1) {
