@@ -543,7 +543,9 @@ public class MainApp extends JFrame {
 				serialMonitorFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
 				serialMonitorFrame.setLocationRelativeTo(null);
-
+				
+				serialMonitorFrame.setTitle("Serial monitor");
+				
 				serialMonitorFrame.setSize(300, 250);
 
 				serialMonitorFrame.setVisible(true);
