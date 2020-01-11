@@ -378,7 +378,6 @@ public class MainApp extends JFrame {
 				message += " ";
 				message += durationTextField.getText();
 				
-				System.err.println(message);
 				
 				try {
 					serialPort.writeString(message);
