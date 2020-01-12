@@ -69,7 +69,7 @@ public class MainApp extends JFrame {
 
 	private JCheckBox autoScrollCheckBox;
 
-	private String batch = "batch ";
+	private String batch = "b ";
 
 	private SerialPort serialPort;
 
@@ -324,7 +324,7 @@ public class MainApp extends JFrame {
 					JOptionPane.showMessageDialog(null, text);
 					return;
 				}
-				String message = "server " + serverCapacityTextField.getText() + " " + serverPeriodTextField.getText();
+				String message = "s " + serverCapacityTextField.getText() + " " + serverPeriodTextField.getText();
 
 				try {
 					serialPort.writeString(message);
@@ -361,15 +361,19 @@ public class MainApp extends JFrame {
 				}
 				
 				String message = "";
-				message += ((String) taskTypeBox.getSelectedItem()).toLowerCase();
+				if(((String) taskTypeBox.getSelectedItem()).equals("Periodic")){
+					message += "p";
+				}else {
+					message += "a";
+				}
 				message += " ";
 				message += nameTextField.getText();
 				message += " ";
 				
 				if (functionTypeBox.getSelectedItem().equals("Print words")) {
-					message += "word";
+					message += "w";
 				} else {
-					message += "number";
+					message += "n";
 				}
 				
 				message += " ";
@@ -409,18 +413,28 @@ public class MainApp extends JFrame {
 					JOptionPane.showMessageDialog(null, text);
 					return;
 				}
-
-				if (!batch.endsWith("batch "))
+				
+				if(((String) taskTypeBox.getSelectedItem()).equals("Aperiodic")){
+					String text = "You can add only periodic tasks to batch";
+					JOptionPane.showMessageDialog(null, text);
+					return;
+				}
+				
+				if (!batch.endsWith("b "))
 					batch += "-";
 
-				batch += ((String) taskTypeBox.getSelectedItem()).toLowerCase();
+				if(((String) taskTypeBox.getSelectedItem()).equals("Periodic")){
+					batch += "p";
+				}
+				
 				batch += "-";
 				batch += nameTextField.getText();
 				batch += "-";
+				
 				if (functionTypeBox.getSelectedItem().equals("Print words")) {
-					batch += "word";
+					batch += "w";
 				} else {
-					batch += "number";
+					batch += "n";
 				}
 				
 				batch += "-";
@@ -451,7 +465,7 @@ public class MainApp extends JFrame {
 					JOptionPane.showMessageDialog(null, text);
 					return;
 				}
-				String message = "delete ";
+				String message = "d ";
 				message += deleteTextField.getText();
 
 				try {
@@ -467,7 +481,7 @@ public class MainApp extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (batch.endsWith("batch ")) {
+				if (batch.endsWith("b ")) {
 					String text = "Batch empty";
 					JOptionPane.showMessageDialog(null, text);
 					return;
@@ -481,7 +495,7 @@ public class MainApp extends JFrame {
 					e1.printStackTrace();
 				}
 
-				batch = "batch ";
+				batch = "b ";
 
 			}
 		});
@@ -565,7 +579,29 @@ public class MainApp extends JFrame {
 				initialisePort();
 			}
 		});
-
+		
+		getCapacityButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(serverPeriodTextField.getText().isBlank()) {
+					String text = "Fill server period field to get capacity";
+					JOptionPane.showMessageDialog(null, text);
+					return;
+				}
+				
+				String period = "c " + serverPeriodTextField.getText();
+				System.out.println(period);
+				try {
+					serialPort.writeString(period);
+				} catch (SerialPortException e1) {
+					e1.printStackTrace();
+				}
+				
+				
+			}
+		});
+		
 	}
 
 	private void initialisePort() {
